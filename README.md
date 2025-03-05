@@ -1,32 +1,17 @@
-# BCA Home Services Project
-This Project is a web-based platform designed to connect users with home service providers for a variety of tasks such as cleaning, plumbing, electrical work, and more. The system allows users to book services, manage their appointments, and view available service providers in their area, while service providers can manage their service offerings and availability. An admin panel is included to oversee users, services, and bookings.
-
-This project is built using PHP, MySQL, and is designed to run on a XAMPP server.
-
-## Table of Contents
-
-- [Features](#features)
-- [Installation Guide](#installation-guide)
-  - [Prerequisites](#prerequisites)
-  - [Setup Instructions](#setup-instructions)
-- [Tech Stack](#tech-stack)
-- [How to Use](#how-to-use)
-- [Contributing](#contributing)
-- [Future Improvements](#future-improvements)
-- [License](#license)
-- [Contact](#contact)
+# Reliable Home Services Project
+Reliable Home Services is a web based platform that connects users with professional service providers for various home services like cleaning, plumbing, electrical work, and more. Users can browse service categories, book services, make payments, and leave reviews for service providers. 
 
 ## Features
 
-- **User Registration & Login:** Users can register and log in to book home services.
-- **Service Catalog:** A variety of home services are available, such as cleaning, plumbing, and electrical work.
-- **Booking System:** Users can book services based on available times.
-- **Service Provider Dashboard:** Service providers can manage their services, update availability, and check bookings.
-- **Admin Panel:** Admins can oversee users, service providers, and bookings.
+- **User Authentication**: Secure login and sign-up for customers and service providers.
+- **Service Categories**: Cleaning, Plumbing, Electrical, and more.
+- **Booking System**: Users can easily book services for specific time slots.
+- **Real-time Notifications**: Receive notifications for booking confirmations, reminders, and updates.
+- **Reviews and Ratings**: Customers can rate and review service providers.
+- **Admin Dashboard**: Admins can manage services, users, and transactions.
+- **SEO Optimized**: The website is built with SEO-friendly practices to ensure high ranking on search engines.
 
-
-## Installation Guide
-
+## Installation
 ### Prerequisites
 To run this project on your local machine, ensure the following software is installed:
 
@@ -40,11 +25,7 @@ To run this project on your local machine, ensure the following software is inst
 
 1. **Clone the repository:**
 
-
 2. **Move the project:** 
-
-
-   ```
 
 3. **Create the database:**
    -  Open your browser and go to http://localhost/phpmyadmin.
