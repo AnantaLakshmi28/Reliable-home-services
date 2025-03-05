@@ -21,7 +21,7 @@ include 'includes/navbar.php';
 
         <?php
         $customer_id = $_SESSION['customer_id'];
-        $query1 = "SELECT * FROM `order_master` WHERE `customer_id` = $customer_id ORDER BY order_id DESC";
+        $query1 = "SELECT * FROM order_master WHERE customer_id = $customer_id ORDER BY order_id DESC";
         $result1 = mysqli_query($conn, $query1);
         if ($result1) {
             while ($row1 = mysqli_fetch_assoc($result1)) {
@@ -60,7 +60,7 @@ include 'includes/navbar.php';
                             <tbody>
                                 <?php
                                 $sno = 0;
-                                $query2 = "SELECT * FROM `user_order` WHERE `order_id` = $order_id";
+                                $query2 = "SELECT * FROM user_order WHERE order_id = $order_id";
                                 $result2 = mysqli_query($conn, $query2);
                                 if ($result2) {
                                     while ($row2 = mysqli_fetch_assoc($result2)) {
@@ -71,7 +71,7 @@ include 'includes/navbar.php';
                                         $sp_id = $row2['sp_id'];
                                         $sno += 1;
 
-                                        $spname = "SELECT * FROM `sp` WHERE sp_id = $sp_id";
+                                        $spname = "SELECT * FROM sp WHERE sp_id = $sp_id";
                                         $spname_result = mysqli_query($conn, $spname);
                                         while ($sprow = mysqli_fetch_assoc($spname_result)) {
                                             $sp_name = $sprow['sp_name'];

@@ -40,16 +40,10 @@ To run this project on your local machine, ensure the following software is inst
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/deepkorat/BCA-home-Services-Project.git
-   ```
 
 2. **Move the project:** 
 
-   Move the cloned project folder into the `htdocs` directory of your XAMPP installation:
 
-   ```bash
-   C:/xampp/htdocs/BCA-home-Services-Project
    ```
 
 3. **Create the database:**
@@ -106,16 +100,6 @@ Contributions are always welcome!
 - **Mobile Optimization:** Improve the responsiveness for mobile devices.
 
 
-## License
-This project is licensed. 
-
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
-## Contact
-For questions or suggestions, please contact:
-
-- **Deep Korat** - [Email](mailto:your-deepkorat13@gmail.com) 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Deep_Korat-informational?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/deep-korat-03273a210/
-)
 

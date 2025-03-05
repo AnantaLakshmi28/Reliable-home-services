@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reliable Home Services - Reviews</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background: #f4f7fa; 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .review-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            animation: slideFromTop 0.5s ease-out forwards;
+        }
+
+        .review-form input, 
+        .review-form textarea, 
+        .review-form button {
+            width: 100%;
+            max-width: 600px;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.7s forwards;
+        }
+
+        .review-form input, .review-form textarea {
+            background-color: #fafafa;
+        }
+
+        .review-form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .review-form button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .clear-button {
+            background-color: #f44336;
+            color: white;
+            margin-top: 10px;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.9s forwards;
+        }
+
+        .clear-button:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 28px;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 1s forwards;
+        }
+
+        .star {
+            color: #ddd;
+            transition: color 0.3s;
+        }
+
+        .star.selected, 
+        .star:hover {
+            color: gold;
+            transform: scale(1.2);
+        }
+
+        .reviews-list {
+            margin-top: 40px;
+            text-align: left;
+            font-size: 16px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+
+        .review {
+            padding: 15px;
+            border-radius: 8px;
+            background: #f9f9f9;
+            margin-top: 15px;
+            border-left: 4px solid #007bff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: slideFromBottom 0.5s ease-out forwards;
+        }
+
+        .review strong {
+            color: #007bff;
+            font-size: 18px;
+        }
+
+        .success-message {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideFromTop {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideFromBottom {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .review-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .star-rating {
+                font-size: 24px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="review-container">
+        <h2>Customer Reviews</h2>
+        <div class="review-form">
+            <input type="text" id="reviewer-name" placeholder="Your Name">
+            <textarea id="review-text" class="review-text" placeholder="Write your review..." oninput="updateCharacterCount()"></textarea>
+            <span class="character-count" id="char-count">0/250</span>
+            <div class="star-rating" id="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <button onclick="submitReview()">Submit</button>
+            <button class="clear-button" onclick="clearFields()">Clear</button>
+            <div class="loader" id="loader"></div>
+        </div>
+
+        <div class="success-message" id="success-message">Review Submitted Successfully!</div>
+        
+        <div class="reviews-list" id="reviews-list"></div>
+    </div>
+
+    <script>
+        let selectedRating = 0;
+
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = this.getAttribute('data-value');
+                document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        function submitReview() {
+            let name = document.getElementById("reviewer-name").value;
+            let text = document.getElementById("review-text").value;
+
+            if (!name || !text || selectedRating === 0) {
+                alert("Please fill all fields and select a rating.");
+                return;
+            }
+
+            // Show loader while processing
+            document.getElementById("loader").style.display = 'inline-block';
+
+            // Simulate review submission (use a timeout for demo)
+            setTimeout(() => {
+                let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+                reviews.push({ name, text, rating: selectedRating });
+                localStorage.setItem("reviews", JSON.stringify(reviews));
+
+                // Hide loader and show success message
+                document.getElementById("loader").style.display = 'none';
+                document.getElementById("success-message").style.display = 'block';
+
+                // Clear the success message after a few seconds
+                setTimeout(() => {
+                    document.getElementById("success-message").style.display = 'none';
+                }, 3000);
+
+                displayReviews();
+            }, 1000); // Simulating review submission time
+        }
+
+        function clearFields() {
+            document.getElementById("reviewer-name").value = '';
+            document.getElementById("review-text").value = '';
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
+            selectedRating = 0;
+            document.getElementById("char-count").innerText = "0/250";
+        }
+
+        function updateCharacterCount() {
+            let textLength = document.getElementById("review-text").value.length;
+            document.getElementById("char-count").innerText = `${textLength}/250`;
+        }
+
+        function displayReviews() {
+            let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+            let reviewsList = document.getElementById("reviews-list");
+            reviewsList.innerHTML = "";
+            reviews.forEach(review => {
+                reviewsList.innerHTML += `
+                    <div class='review'>
+                        <strong>${review.name}</strong> (${review.rating}⭐)
+                        <p>${review.text}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Display reviews when the page loads
+        displayReviews();
+    </script>
+</body>
+</html>

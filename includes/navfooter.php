@@ -71,6 +71,10 @@ if (!defined('MYSITE')) {
                         <li>
                             <a href="mycart.php" class="text-light">Cart</a>
                         </li>
+                        <li>
+                        <a href="reviews.html" class="text-light">Customer Reviews</a>
+                        </li>
+
                     </ul>
 
                 </div>
